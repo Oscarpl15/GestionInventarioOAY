@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.oay.gestioninventariooay.controller.AgregarMaterialController"
+            prefWidth="600.0" stylesheets="@../css/estilos.css">
+
+    <VBox spacing="15.0" AnchorPane.topAnchor="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+        <Label text="Añadir Nuevo Material" styleClass="titulo-formulario"/>
+
+        <GridPane vgap="10.0" hgap="10.0">
+            <columnConstraints>
+                <ColumnConstraints minWidth="130.0"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <Label text="Formato:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cmbCategoria" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="200.0">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Redonda"/>
+                        <String fx:value="Cuadrada"/>
+                        <String fx:value="Plancha"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <Label text="Tipo de Material:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cmbTipoMaterial" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="200.0"/>
+
+            <Label text="Proveedor (Opcional):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtEmpresa" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="Precio Total € (Opc):" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtPrecio" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <Separator/>
+
+        <VBox fx:id="contenedorDinamico" spacing="10.0"/>
+
+        <HBox spacing="15.0" alignment="CENTER_RIGHT">
+            <Button text="Cancelar" onAction="#cancelar" styleClass="boton-cancelar"/>
+            <Button text="Guardar Material" onAction="#guardar" styleClass="boton-accion-yellow"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

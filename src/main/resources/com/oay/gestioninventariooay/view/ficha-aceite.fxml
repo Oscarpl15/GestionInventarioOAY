@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.oay.gestioninventariooay.controller.FichaAceiteController"
+            prefWidth="500.0" stylesheets="@../css/estilos.css">
+
+    <VBox spacing="15.0" AnchorPane.topAnchor="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label fx:id="lblTitulo" styleClass="titulo-formulario"/>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="lblModo" text="[SOLO LECTURA]" styleClass="label-modo-lectura"/>
+        </HBox>
+
+        <Separator/>
+
+        <GridPane vgap="10.0" hgap="10.0">
+            <columnConstraints>
+                <ColumnConstraints minWidth="130.0"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <Label text="Máquina Destino:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cmbMaquina" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="250.0">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Torno Mazak"/>
+                        <String fx:value="Fresa Mikron"/>
+                        <String fx:value="Fresa Kondia"/>
+                        <String fx:value="Fresa Puente"/>
+                        <String fx:value="Sierra"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <Label text="Tipo de Aceite:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtTipoAceite" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Uso Concreto:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtUso" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="Capacidad (Litros):" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtCapacidad" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+            <Label text="Proveedor:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtEmpresa" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+            <Label text="Precio Total (€):" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtPrecio" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <Separator/>
+
+        <VBox fx:id="panelStock" spacing="10" styleClass="panel-stock">
+            <Label text="Ajuste de Garrafas / Bidones" styleClass="titulo-stock"/>
+            <HBox fx:id="boxControlesStock" spacing="10" alignment="CENTER_LEFT"/>
+        </VBox>
+
+        <HBox spacing="15.0" alignment="CENTER_RIGHT">
+            <Button text="Cerrar" onAction="#cerrar" styleClass="boton-cancelar"/>
+            <Button fx:id="btnModificar" text="Modificar Datos" onAction="#toggleEdicion" styleClass="boton-accion-yellow"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="rootPane" prefHeight="768" prefWidth="1024" stylesheets="@../css/estilos.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.oay.gestioninventariooay.controller.MainController">
+
+    <BorderPane fx:id="mainLayout">
+        <top>
+            <StackPane alignment="CENTER" styleClass="header-panel">
+                <VBox alignment="CENTER" spacing="20">
+                    <Label styleClass="titulo-app" text="TALLER MECÁNICO OAY - INVENTARIO" />
+
+                    <fx:define>
+                        <ToggleGroup fx:id="menuGroup"/>
+                    </fx:define>
+
+                    <HBox alignment="CENTER" spacing="15">
+                        <ToggleButton onAction="#mostrarMateriales" styleClass="boton-menu" text="MATERIALES" toggleGroup="$menuGroup" selected="true"/>
+                        <ToggleButton onAction="#mostrarHerramientas" styleClass="boton-menu" text="HERRAMIENTAS" toggleGroup="$menuGroup"/>
+                        <ToggleButton onAction="#mostrarAceites" styleClass="boton-menu" text="ACEITES" toggleGroup="$menuGroup"/>
+                    </HBox>
+                </VBox>
+            </StackPane>
+        </top>
+
+        <center>
+            <BorderPane styleClass="contenedor-principal">
+                <center>
+                    <TabPane fx:id="tabPrincipal" tabClosingPolicy="UNAVAILABLE" >
+                        <tabs>
+                            <Tab><content><fx:include source="materiales-view.fxml" /></content></Tab>
+                            <Tab><content><fx:include source="herramientas-view.fxml" /></content></Tab>
+                            <Tab><content><fx:include source="aceites-view.fxml" /></content></Tab>
+                        </tabs>
+                    </TabPane>
+                </center>
+            </BorderPane>
+        </center>
+    </BorderPane>
+</StackPane>

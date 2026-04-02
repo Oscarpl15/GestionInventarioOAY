@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.oay.gestioninventariooay.controller.AgregarHerramientaController"
+            prefWidth="800.0" stylesheets="@../css/estilos.css"> <VBox spacing="15.0" AnchorPane.topAnchor="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+    <Label text="Añadir Nueva Herramienta" styleClass="titulo-formulario"/>
+
+    <GridPane vgap="10.0" hgap="10.0">
+        <columnConstraints>
+            <ColumnConstraints minWidth="120.0"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+            <ColumnConstraints minWidth="120.0"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="Tipo de Herramienta:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="cmbTipo" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="200.0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Torno"/>
+                    <String fx:value="Fresa"/>
+                    <String fx:value="Broca"/>
+                    <String fx:value="Macho"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <Label text="Mat. a Mecanizar:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+        <ComboBox fx:id="cmbMaterialMecanizar" GridPane.rowIndex="0" GridPane.columnIndex="3" prefWidth="200.0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="No ferroso"/>
+                    <String fx:value="Acero inoxidable"/>
+                    <String fx:value="Acero"/>
+                    <String fx:value="Fundicion"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <Label text="Referencia (Opc):" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtReferencia" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Cantidad Inicial:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+        <TextField fx:id="txtCantidad" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+        <Label text="Proveedor (Opc):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtEmpresa" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Precio € (Opc):" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+        <TextField fx:id="txtPrecio" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+    </GridPane>
+
+    <Separator/>
+
+    <HBox spacing="30.0" VBox.vgrow="ALWAYS">
+        <VBox fx:id="panelIzquierdo" spacing="10.0" prefWidth="350"/>
+        <VBox fx:id="panelDerecho" spacing="10.0" prefWidth="350" styleClass="panel-derecho-dinamico"/>
+    </HBox>
+
+    <HBox spacing="15.0" alignment="CENTER_RIGHT">
+        <Button text="Cancelar" onAction="#cancelar" styleClass="boton-cancelar"/>
+        <Button text="Guardar Herramienta" onAction="#guardar" styleClass="boton-accion-yellow"/>
+    </HBox>
+</VBox>
+</AnchorPane>

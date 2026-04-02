@@ -1,0 +1,233 @@
+/* Escala de grises base con acentos azul y amarillo */
+.root {
+    -color-accent-emphasis: #0A3D62; /* Azul marino industrial */
+    -color-accent-fg: #ffffff;
+    -fx-background-color: #E8ECEF; /* Gris claro de fondo */
+}
+
+/* MENÚ LATERAL/SUPERIOR */
+.header-panel {
+    -fx-background-color: #BDC3C7;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+    -fx-padding: 15;
+}
+
+.boton-menu {
+    -fx-background-color: #2C3E50; /* Gris antracita */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 25px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.boton-menu:hover {
+    -fx-background-color: #34495E;
+}
+
+.boton-menu:pressed, .boton-menu:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.boton-menu:selected {
+    -fx-background-color: #F1C40F; /* Amarillo advertencia taller */
+    -fx-text-fill: #1A252F;
+}
+
+/* TABLAS */
+.table-view {
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-border-color: #95A5A6;
+    -fx-border-width: 1px;
+}
+.table-view .column-header-background {
+    -fx-background-color: #7F8C8D; /* Gris medio metalizado */
+    -fx-background-radius: 3px 3px 0 0;
+}
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.table-view .table-row-cell:selected {
+    -fx-background-color: rgba(241, 196, 15, 0.2); /* Fila seleccionada brilla en amarillo suave */
+}
+.table-view .table-row-cell:selected .table-cell {
+    -fx-text-fill: #0A3D62;
+    -fx-font-weight: bold;
+}
+
+/* BOTONES DE ACCIÓN */
+.boton-accion {
+    -fx-background-color: #0A3D62;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px;
+}
+.boton-accion:hover {
+    -fx-background-color: #0E5385;
+}
+
+.boton-accion-yellow {
+    -fx-background-color: #F1C40F;
+    -fx-text-fill: #1A252F;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px;
+}
+
+/* TAB oculto */
+/* 1. Ocultar la zona de las pestañas (Cabecera) */
+.tab-pane .tab-header-area {
+    -fx-visible: false;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+    -fx-pref-height: 0;
+    -fx-padding: 0;
+}
+
+/* 2. Ocultar el fondo y los bordes del contenedor principal */
+.tab-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-radius: 0;
+}
+
+/* 3. Asegurar que el contenido interno no tenga bordes extraños */
+.tab-pane .tab-content-area {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+}
+
+/* 4.Eliminar la "región de cabeceras" por si acaso */
+.tab-pane .headers-region {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-visible: false;
+    -fx-max-height: 0;
+}
+
+/*  ALERTAS CUSTOMIZADAS  */
+.alerta-custom {
+    -fx-background-color: #ffffff;
+    -fx-font-size: 14px;
+}
+.alerta-custom .header-panel {
+    -fx-background-color: #E8ECEF; /* Gris muy clarito */
+}
+.alerta-custom .header-panel .label {
+    -fx-text-fill: #E74C3C; /* Rojo para el título de error */
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+.alerta-custom .content.label {
+    -fx-text-fill: #2C3E50; /* Texto oscuro */
+}
+.alerta-custom .button {
+    -fx-background-color: #0A3D62;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.alerta-custom .button:hover {
+    -fx-background-color: #0E5385;
+}
+
+/* ESTADOS DE LAS FICHAS (MODO EDICIÓN / LECTURA) */
+
+.boton-edicion-activo {
+    -fx-background-color: #27AE60; /* Verde */
+    -fx-text-fill: white;
+}
+.boton-edicion-activo:hover {
+    -fx-background-color: #219653;
+}
+
+.boton-lectura-activo {
+    -fx-background-color: #F1C40F; /* Amarillo */
+    -fx-text-fill: #1A252F;
+}
+.boton-lectura-activo:hover {
+    -fx-background-color: #D4AC0D;
+}
+
+.label-modo-edicion {
+    -fx-text-fill: #E74C3C; /* Rojo advertencia */
+}
+
+.label-modo-lectura {
+    -fx-text-fill: #7F8C8D; /* Gris neutro */
+}
+
+/* Aplica esto a TextFields y ComboBoxes cuando estén bloqueados */
+.campo-bloqueado {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-opacity: 1; /* Para que el texto no se vea gris y apagado en los ComboBox */
+}
+
+/* === CLASES ESTRUCTURALES Y DE CONTENEDORES === */
+.contenedor-principal {
+    -fx-padding: 20;
+}
+
+.panel-stock {
+    -fx-background-color: #F8F9FA;
+    -fx-padding: 15;
+    -fx-border-color: #BDC3C7;
+    -fx-border-radius: 5;
+}
+
+/* === TIPOGRAFÍAS Y TÍTULOS === */
+.titulo-formulario {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50;
+}
+
+.titulo-seccion {
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495E;
+}
+
+.titulo-stock {
+    -fx-font-weight: bold;
+    -fx-text-fill: #0A3D62;
+}
+
+.texto-negrita {
+    -fx-font-weight: bold;
+}
+
+/* === BOTONES SECUNDARIOS (CANCELAR / CERRAR) === */
+.boton-cancelar {
+    -fx-background-color: transparent;
+    -fx-border-color: #95A5A6;
+    -fx-text-fill: #2C3E50;
+    -fx-border-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.boton-cancelar:hover {
+    -fx-background-color: #E8ECEF;
+}
+
+/* === MAIN VIEW === */
+.titulo-app {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50;
+}
+
+/* === PANELES DINÁMICOS === */
+.panel-derecho-dinamico {
+    -fx-padding: 10;
+    -fx-border-color: #BDC3C7;
+    -fx-border-radius: 4;
+}
