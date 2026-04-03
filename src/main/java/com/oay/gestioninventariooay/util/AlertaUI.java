@@ -1,6 +1,8 @@
 package com.oay.gestioninventariooay.util;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 
 public class AlertaUI {
@@ -41,5 +43,20 @@ public class AlertaUI {
         alert.setContentText(mensaje);
         aplicarEstilo(alert);
         alert.showAndWait();
+    }
+
+    public static boolean pedirConfirmacion(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar Acción");
+        alert.setHeaderText(titulo);
+        alert.setContentText(mensaje);
+        aplicarEstilo(alert);
+
+        ButtonType btnSi = new ButtonType("Sí, eliminar", ButtonBar.ButtonData.OK_DONE);
+        ButtonType btnNo = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(btnSi, btnNo);
+
+        java.util.Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == btnSi;
     }
 }

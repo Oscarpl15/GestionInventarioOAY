@@ -10,24 +10,31 @@
 
     <BorderPane>
         <left>
-            <ComboBox fx:id="cmbFiltroTipo" prefWidth="200" promptText="Filtrar por Tipo">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Todos"/>
-                        <String fx:value="Torno"/>
-                        <String fx:value="Fresa"/>
-                        <String fx:value="Broca"/>
-                        <String fx:value="Macho"/>
-                    </FXCollections>
-                </items>
-            </ComboBox>
+            <HBox spacing="10">
+                <ComboBox fx:id="cmbFiltroTipo" prefWidth="150" promptText="Tipo Herramienta">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Todos"/>
+                            <String fx:value="Torno"/>
+                            <String fx:value="Fresa"/>
+                            <String fx:value="Broca"/>
+                            <String fx:value="Macho"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <ComboBox fx:id="cmbFiltroOperacion" prefWidth="170" visible="false" managed="false"/>
+            </HBox>
         </left>
+        <right>
+            <TextField fx:id="txtBuscar" promptText="🔍 Buscar por referencia..." prefWidth="200"/>
+        </right>
     </BorderPane>
 
     <TableView fx:id="tablaHerramientas" VBox.vgrow="ALWAYS" styleClass="striped, bordered">
         <columns>
             <TableColumn fx:id="colTipo" text="Tipo Herramienta" prefWidth="120"/>
             <TableColumn fx:id="colTipoOperacion" text="Tipo de Operación" prefWidth="150"/>
+            <TableColumn fx:id="colDimension" text="Dimensión" prefWidth="100"/>
             <TableColumn fx:id="colReferencia" text="Referencia" prefWidth="130"/>
             <TableColumn fx:id="colMaterialMecanizar" text="Mat. a Mecanizar" prefWidth="140"/>
             <TableColumn fx:id="colCantidad" text="Stock (Uds)" prefWidth="90"/>

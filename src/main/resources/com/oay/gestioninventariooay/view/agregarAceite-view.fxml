@@ -33,8 +33,8 @@
             <Label text="Tipo de Aceite:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
             <TextField fx:id="txtTipoAceite" promptText="Ej: Taladrina, Aceite Guías..." GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-            <Label text="Uso Concreto:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtUso" promptText="Opcional" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <Label text="Referencia (Opc):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtReferencia" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
             <Label text="Capacidad Garrafa (L):" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
             <TextField fx:id="txtCapacidad" promptText="Ej: 25" GridPane.rowIndex="3" GridPane.columnIndex="1"/>

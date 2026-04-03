@@ -17,10 +17,12 @@ public class InventarioService {
     // --- MATERIALES ---
     public void guardarMaterial(Material m) throws Exception { dao.guardarOActualizar(m); }
     public List<Material> obtenerMateriales() { return dao.obtenerTodos(Material.class); }
+    public void eliminarMaterial(Material m) throws Exception { dao.eliminar(Material.class, m.getId()); }
 
     // --- ACEITES ---
     public void guardarAceite(Aceite a) throws Exception { dao.guardarOActualizar(a); }
     public List<Aceite> obtenerAceites() { return dao.obtenerTodos(Aceite.class); }
+    public void eliminarAceite(Aceite a) throws Exception { dao.eliminar(Aceite.class, a.getId()); }
 
     public void sumarStockHerramienta(Herramienta h) throws Exception {
         h.setCantidad(h.getCantidad() + 1);
@@ -30,6 +32,24 @@ public class InventarioService {
         if(h.getCantidad() > 0) {
             h.setCantidad(h.getCantidad() - 1);
             dao.guardarOActualizar(h);
+        }
+    }
+
+    public Material obtenerMaterialPorId(Integer id) {
+        try (var em = com.oay.gestioninventariooay.util.GestorBBDD.getEntityManagerFactory().createEntityManager()) {
+            return em.find(Material.class, id);
+        }
+    }
+
+    public Herramienta obtenerHerramientaPorId(Integer id) {
+        try (var em = com.oay.gestioninventariooay.util.GestorBBDD.getEntityManagerFactory().createEntityManager()) {
+            return em.find(Herramienta.class, id);
+        }
+    }
+
+    public Aceite obtenerAceitePorId(Integer id) {
+        try (var em = com.oay.gestioninventariooay.util.GestorBBDD.getEntityManagerFactory().createEntityManager()) {
+            return em.find(Aceite.class, id);
         }
     }
 }

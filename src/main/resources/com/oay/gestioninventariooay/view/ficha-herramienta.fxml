@@ -24,10 +24,10 @@
             </columnConstraints>
 
             <Label text="Categoría:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtCategoriaFija" GridPane.rowIndex="0" GridPane.columnIndex="1" editable="false" styleClass="texto-negrita"/>
+            <ComboBox fx:id="cmbCategoria" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="250.0"/>
 
             <Label text="Tipo/Operación:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtOperacionFija" GridPane.rowIndex="1" GridPane.columnIndex="1" editable="false"/>
+            <ComboBox fx:id="cmbOperacion" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="250.0"/>
 
             <Label text="Mat. a Mecanizar:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
             <ComboBox fx:id="cmbMaterial" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="250.0">
@@ -68,8 +68,9 @@
         </VBox>
 
         <HBox spacing="15.0" alignment="CENTER_RIGHT">
-            <Button text="Cerrar" onAction="#cerrar" styleClass="boton-cancelar"/>
-            <Button fx:id="btnModificar" text="Modificar Datos" onAction="#toggleEdicion" styleClass="boton-accion-yellow"/>
+            <Button fx:id="btnCancelarEdicion" text="Cancelar Edición" onAction="#cancelarEdicion" styleClass="boton-cancelar" visible="false" managed="false"/>
+            <Button fx:id="btnCerrar" text="Cerrar Ficha" onAction="#cerrar" styleClass="boton-cancelar"/>
+            <Button fx:id="btnModificar" text="Modificar Datos" onAction="#toggleEdicion" styleClass="boton-lectura-activo"/>
         </HBox>
     </VBox>
 </AnchorPane>

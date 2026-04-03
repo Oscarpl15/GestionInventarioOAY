@@ -1,7 +1,10 @@
 package com.oay.gestioninventariooay.controller;
 
+import com.oay.gestioninventariooay.exception.ValidacionException;
 import com.oay.gestioninventariooay.model.Aceite;
 import com.oay.gestioninventariooay.service.InventarioService;
+import com.oay.gestioninventariooay.util.AlertaUI;
+import com.oay.gestioninventariooay.util.Validador;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -11,26 +14,34 @@ import javafx.stage.Stage;
 public class AgregarAceiteController {
 
     @FXML private ComboBox<String> cmbMaquina;
-    @FXML private TextField txtTipoAceite, txtUso, txtCapacidad, txtCantidad, txtEmpresa, txtPrecio;
+    @FXML private TextField txtTipoAceite, txtReferencia, txtCapacidad, txtCantidad, txtEmpresa, txtPrecio;
 
     private InventarioService service = new InventarioService();
 
     @FXML
     private void guardar(ActionEvent event) {
         try {
+            Validador.requerirPresente(cmbMaquina.getValue(), "Máquina Destino");
+            Validador.requerirPresente(txtTipoAceite.getText(), "Tipo de Aceite");
+
+
             Aceite a = new Aceite();
             a.setMaquinaDestino(cmbMaquina.getValue());
             a.setTipoAceite(txtTipoAceite.getText());
-            a.setUsoConcreto(txtUso.getText());
-            a.setCapacidadLitros(Double.parseDouble(txtCapacidad.getText()));
-            a.setCantidad(Integer.parseInt(txtCantidad.getText()));
-            a.setEmpresaCompra(txtEmpresa.getText());
-            a.setPrecio(Double.parseDouble(txtPrecio.getText()));
+            a.setReferencia(txtReferencia.getText().trim());
+            a.setCapacidadLitros(Validador.parsearDoublePositivo(txtCapacidad.getText(), "Capacidad Garrafa"));
+            a.setCantidad(Validador.parsearEnteroPositivo(txtCantidad.getText(), "Stock Inicial"));
+
+            a.setEmpresaCompra(txtEmpresa.getText().trim()); // Opcional
+            a.setPrecio(Validador.parsearDoubleOpcional(txtPrecio.getText(), "Precio Total")); // Opcional
 
             service.guardarAceite(a);
+            AlertaUI.mostrarInfo("Éxito", "Aceite guardado correctamente.");
             cancelar(event);
+        } catch (ValidacionException ve) {
+            AlertaUI.mostrarError("Faltan Datos Obligatorios", ve.getMessage());
         } catch (Exception e) {
-            System.err.println("Error al guardar aceite: " + e.getMessage());
+            AlertaUI.mostrarErrorCritico("Error de Base de Datos", "No se pudo guardar el aceite.");
         }
     }
 

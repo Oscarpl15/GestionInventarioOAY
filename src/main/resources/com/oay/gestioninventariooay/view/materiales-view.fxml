@@ -10,17 +10,23 @@
 
     <BorderPane>
         <left>
-            <ComboBox fx:id="cmbFiltroCategoria" prefWidth="200" promptText="Filtrar por Categoría">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Todos"/>
-                        <String fx:value="Redonda"/>
-                        <String fx:value="Cuadrada"/>
-                        <String fx:value="Plancha"/>
-                    </FXCollections>
-                </items>
-            </ComboBox>
+            <HBox spacing="10">
+                <ComboBox fx:id="cmbFiltroCategoria" prefWidth="150" promptText="Formato">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Todos"/>
+                            <String fx:value="Redonda"/>
+                            <String fx:value="Cuadrada"/>
+                            <String fx:value="Plancha"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <ComboBox fx:id="cmbFiltroMaterial" prefWidth="150" promptText="Material"/>
+            </HBox>
         </left>
+        <right>
+            <TextField fx:id="txtBuscar" promptText="🔍 Buscar por material..." prefWidth="200"/>
+        </right>
     </BorderPane>
 
     <TableView fx:id="tablaMateriales" VBox.vgrow="ALWAYS" styleClass="striped, bordered">

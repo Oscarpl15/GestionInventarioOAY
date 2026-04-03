@@ -29,4 +29,22 @@ public class InventarioDAO {
             return List.of();
         }
     }
+
+    public <T> void eliminar(Class<T> clase, Object id) throws Exception {
+        EntityManager em = null;
+        try {
+            em = GestorBBDD.getEntityManagerFactory().createEntityManager();
+            em.getTransaction().begin();
+            T entidad = em.find(clase, id);
+            if (entidad != null) {
+                em.remove(entidad);
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em != null && em.getTransaction().isActive()) em.getTransaction().rollback();
+            throw new Exception("Error al eliminar en BBDD: " + e.getMessage());
+        } finally {
+            if (em != null) em.close();
+        }
+    }
 }

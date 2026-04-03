@@ -40,8 +40,8 @@
             <Label text="Tipo de Aceite:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
             <TextField fx:id="txtTipoAceite" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-            <Label text="Uso Concreto:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtUso" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <Label text="Referencia:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtReferencia" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
             <Label text="Capacidad (Litros):" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
             <TextField fx:id="txtCapacidad" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
@@ -61,8 +61,12 @@
         </VBox>
 
         <HBox spacing="15.0" alignment="CENTER_RIGHT">
-            <Button text="Cerrar" onAction="#cerrar" styleClass="boton-cancelar"/>
-            <Button fx:id="btnModificar" text="Modificar Datos" onAction="#toggleEdicion" styleClass="boton-accion-yellow"/>
+            <Button fx:id="btnEliminar" text="Eliminar Aceite" onAction="#eliminar" styleClass="boton-eliminar"/>
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Button fx:id="btnCancelarEdicion" text="Cancelar Edición" onAction="#cancelarEdicion" styleClass="boton-cancelar" visible="false" managed="false"/>
+            <Button fx:id="btnCerrar" text="Cerrar Ficha" onAction="#cerrar" styleClass="boton-cancelar"/>
+            <Button fx:id="btnModificar" text="Modificar Datos" onAction="#toggleEdicion" styleClass="boton-lectura-activo"/>
         </HBox>
     </VBox>
 </AnchorPane>

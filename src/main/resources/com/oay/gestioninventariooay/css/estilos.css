@@ -13,7 +13,7 @@
 }
 
 .boton-menu {
-    -fx-background-color: #2C3E50; /* Gris antracita */
+    -fx-background-color: #1F618D;
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
@@ -24,7 +24,7 @@
 }
 
 .boton-menu:hover {
-    -fx-background-color: #34495E;
+    -fx-background-color: #2980B9;
 }
 
 .boton-menu:pressed, .boton-menu:focused {
@@ -49,8 +49,9 @@
     -fx-background-radius: 3px 3px 0 0;
 }
 .table-view .column-header .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #1F618D;
     -fx-font-weight: bold;
+    -fx-font-size: 14px; /* Tamaño de letra más grande */
 }
 .table-view .table-row-cell:selected {
     -fx-background-color: rgba(241, 196, 15, 0.2); /* Fila seleccionada brilla en amarillo suave */
@@ -62,13 +63,19 @@
 
 /* BOTONES DE ACCIÓN */
 .boton-accion {
-    -fx-background-color: #0A3D62;
+    -fx-background-color: #1F618D;
     -fx-text-fill: white;
+    -fx-font-size: 14px; /* Mismo tamaño de letra que el menú superior */
     -fx-font-weight: bold;
+    -fx-padding: 10px 25px; /* Mismo alto que el menú superior */
+    -fx-pref-width: 230px; /* Ancho fijo para que los 3 sean exactamente iguales */
+    -fx-alignment: center; /* Asegura que el texto quede centrado */
     -fx-background-radius: 4px;
+    -fx-cursor: hand;
 }
+
 .boton-accion:hover {
-    -fx-background-color: #0E5385;
+    -fx-background-color: #2980B9;
 }
 
 .boton-accion-yellow {
@@ -222,7 +229,7 @@
 .titulo-app {
     -fx-font-size: 28px;
     -fx-font-weight: bold;
-    -fx-text-fill: #2C3E50;
+    -fx-text-fill: #1F618D;
 }
 
 /* === PANELES DINÁMICOS === */
@@ -230,4 +237,16 @@
     -fx-padding: 10;
     -fx-border-color: #BDC3C7;
     -fx-border-radius: 4;
+}
+
+/* === BOTÓN ELIMINAR === */
+.boton-eliminar {
+    -fx-background-color: #E74C3C;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+.boton-eliminar:hover {
+    -fx-background-color: #C0392B;
 }

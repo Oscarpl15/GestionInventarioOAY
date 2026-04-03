@@ -1,7 +1,10 @@
 package com.oay.gestioninventariooay.controller;
 
+import com.oay.gestioninventariooay.exception.ValidacionException;
 import com.oay.gestioninventariooay.model.Herramienta;
 import com.oay.gestioninventariooay.service.InventarioService;
+import com.oay.gestioninventariooay.util.AlertaUI;
+import com.oay.gestioninventariooay.util.Validador;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -171,22 +174,86 @@ public class AgregarHerramientaController {
     @FXML
     private void guardar(ActionEvent event) {
         try {
+            // 1. Datos obligatorios generales
+            Validador.requerirPresente(cmbTipo.getValue(), "Tipo de Herramienta");
+            Validador.requerirPresente(cmbMaterialMecanizar.getValue(), "Material a Mecanizar");
+
             Herramienta h = new Herramienta();
             h.setCategoria(cmbTipo.getValue());
             h.setMaterialMecanizar(cmbMaterialMecanizar.getValue());
-            h.setCantidad(Integer.parseInt(txtCantidad.getText()));
+            h.setCantidad(Validador.parsearEnteroPositivo(txtCantidad.getText(), "Cantidad Inicial"));
 
-            // Opcionales
-            if(!txtReferencia.getText().isEmpty()) h.setReferencia(txtReferencia.getText());
-            if(!txtEmpresa.getText().isEmpty()) h.setEmpresaCompra(txtEmpresa.getText());
-            if(!txtPrecio.getText().isEmpty()) h.setPrecio(Double.parseDouble(txtPrecio.getText()));
+            // 2. OPCIONALES (Solo estos 3)
+            h.setReferencia(txtReferencia.getText().trim());
+            h.setEmpresaCompra(txtEmpresa.getText().trim());
+            h.setPrecio(Validador.parsearDoubleOpcional(txtPrecio.getText(), "Precio"));
 
-            // Asignación rápida de atributos según tipo (Aquí iría la lógica de recolección de los textfields, como if(h.getCategoria().equals("Torno") && cmbTipoMecanizadoTorno.getValue() != null) h.setTipoMecanizado(cmbTipoMecanizadoTorno.getValue()); ...etc. )
+            // 3. OBLIGATORIOS ESPECÍFICOS SEGÚN CATEGORÍA
+            String tipo = h.getCategoria();
+
+            if (tipo.equals("Torno")) {
+                Validador.requerirPresente(cmbTipoMecanizadoTorno.getValue(), "Tipo Mecanizado");
+                h.setTipoMecanizado(cmbTipoMecanizadoTorno.getValue());
+
+                Validador.requerirPresente(txtPortaherramientas.getText(), "Portaherramientas");
+                h.setPortaherramientas(txtPortaherramientas.getText().trim());
+
+                String tm = h.getTipoMecanizado();
+                if(tm.equals("Cilindrado exterior") || tm.equals("Cilindrado interior")) {
+                    h.setRadioPunta(Validador.parsearDoublePositivo(txtRadioPunta.getText(), "Radio Punta"));
+                    h.setAnguloCorte(Validador.parsearDoublePositivo(txtAnguloCorte.getText(), "Ángulo Corte"));
+                    if(tm.equals("Cilindrado interior")) h.setDiametroMinimo(Validador.parsearDoublePositivo(txtDiametroMinimo.getText(), "Diámetro Mínimo"));
+                } else if(tm.equals("Roscado exterior") || tm.equals("Roscado interior")) {
+                    h.setAnguloPunta(Validador.parsearDoublePositivo(txtAnguloPunta.getText(), "Ángulo Punta"));
+                    h.setPasoMinimo(Validador.parsearDoublePositivo(txtPasoMinimo.getText(), "Paso Mínimo"));
+                    h.setPasoMaximo(Validador.parsearDoublePositivo(txtPasoMaximo.getText(), "Paso Máximo"));
+                } else if(tm.contains("Ranurado")) {
+                    h.setAncho(Validador.parsearDoublePositivo(txtAncho.getText(), "Ancho"));
+                    h.setProfundidadMaxima(Validador.parsearDoublePositivo(txtProfundidadMaxima.getText(), "Profundidad Máx"));
+                    if(tm.equals("Ranurado interior")) h.setDiametroMinimo(Validador.parsearDoublePositivo(txtDiametroMinimo.getText(), "Diámetro Mínimo"));
+                } else if (tm.equals("Broca torno")) {
+                    h.setDiametro(Validador.parsearDoublePositivo(txtDiametro.getText(), "Diámetro"));
+                    h.setProfundidadMaxima(Validador.parsearDoublePositivo(txtProfundidadMaxima.getText(), "Profundidad Máx"));
+                }
+
+            } else if (tipo.equals("Fresa")) {
+                Validador.requerirPresente(cmbNumLabios.getValue(), "Num. Labios");
+                h.setNumLabios(Validador.parsearEnteroPositivo(cmbNumLabios.getValue().toString(), "Num. Labios"));
+
+                Validador.requerirPresente(cmbTipoFresa.getValue(), "Tipo de Fresa");
+                h.setTipoFresa(cmbTipoFresa.getValue());
+
+                h.setDiametro(Validador.parsearDoublePositivo(txtDiametro.getText(), "Diámetro"));
+                h.setLongitudCorte(Validador.parsearDoublePositivo(txtLongitudCorte.getText(), "Longitud Corte"));
+
+                if (h.getTipoFresa().equals("Plato de cuchillas")) {
+                    Validador.requerirPresente(txtReferenciaPlaquita.getText(), "Referencia Plaquita");
+                    h.setReferenciaPlaquita(txtReferenciaPlaquita.getText().trim());
+                    h.setRadioPunta(Validador.parsearDoublePositivo(txtRadioPunta.getText(), "Radio Punta"));
+                }
+
+            } else if (tipo.equals("Broca")) {
+                h.setDiametro(Validador.parsearDoublePositivo(txtDiametro.getText(), "Diámetro"));
+                h.setLongitudCorte(Validador.parsearDoublePositivo(txtLongitudCorte.getText(), "Longitud Corte"));
+
+            } else if (tipo.equals("Macho")) {
+                Validador.requerirPresente(cmbTipoRosca.getValue(), "Tipo Rosca");
+                Validador.requerirPresente(cmbMedidaRosca.getValue(), "Medida Rosca");
+                Validador.requerirPresente(cmbTipoAgujero.getValue(), "Tipo Agujero");
+
+                h.setTipoRosca(cmbTipoRosca.getValue());
+                h.setMedidaRosca(cmbMedidaRosca.getValue());
+                h.setTipoAgujero(cmbTipoAgujero.getValue());
+            }
 
             service.guardarHerramienta(h);
+            AlertaUI.mostrarInfo("Éxito", "Herramienta guardada correctamente.");
             cancelar(event);
+
+        } catch (ValidacionException ve) {
+            AlertaUI.mostrarError("Faltan Datos Obligatorios", ve.getMessage());
         } catch (Exception e) {
-            System.err.println("Error al guardar herramienta: " + e.getMessage());
+            AlertaUI.mostrarErrorCritico("Error de Base de Datos", "No se pudo guardar la herramienta. Detalles: " + e.getMessage());
         }
     }
 

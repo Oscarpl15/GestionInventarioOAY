@@ -18,10 +18,10 @@ public class FichaAceiteController {
 
     @FXML private Label lblTitulo, lblModo;
     @FXML private ComboBox<String> cmbMaquina;
-    @FXML private TextField txtTipoAceite, txtUso, txtCapacidad, txtEmpresa, txtPrecio;
+    @FXML private TextField txtTipoAceite, txtReferencia, txtCapacidad, txtEmpresa, txtPrecio;
     @FXML private VBox panelStock;
     @FXML private HBox boxControlesStock;
-    @FXML private Button btnModificar;
+    @FXML private Button btnModificar, btnCancelarEdicion, btnEliminar,btnCerrar;
 
     private Aceite aceite;
     private boolean modoEdicion = false;
@@ -36,7 +36,7 @@ public class FichaAceiteController {
         lblTitulo.setText("Ficha: " + a.getTipoAceite());
         cmbMaquina.getSelectionModel().select(a.getMaquinaDestino());
         txtTipoAceite.setText(a.getTipoAceite());
-        txtUso.setText(a.getUsoConcreto() != null ? a.getUsoConcreto() : "");
+        txtReferencia.setText(a.getReferencia() != null ? a.getReferencia() : "");
         txtCapacidad.setText(String.valueOf(a.getCapacidadLitros()));
         txtEmpresa.setText(a.getEmpresaCompra() != null ? a.getEmpresaCompra() : "");
         txtPrecio.setText(a.getPrecio() != null ? String.valueOf(a.getPrecio()) : "");
@@ -77,27 +77,6 @@ public class FichaAceiteController {
         }
     }
 
-    private void bloquearCampos(boolean bloquear) {
-        txtTipoAceite.setEditable(!bloquear);
-        txtUso.setEditable(!bloquear);
-        txtCapacidad.setEditable(!bloquear);
-        txtEmpresa.setEditable(!bloquear);
-        txtPrecio.setEditable(!bloquear);
-        txtCantidadPrincipal.setEditable(!bloquear);
-
-        alternarEstiloBloqueo(txtTipoAceite, bloquear);
-        alternarEstiloBloqueo(txtUso, bloquear);
-        alternarEstiloBloqueo(txtCapacidad, bloquear);
-        alternarEstiloBloqueo(txtEmpresa, bloquear);
-        alternarEstiloBloqueo(txtPrecio, bloquear);
-
-        cmbMaquina.setDisable(bloquear);
-        alternarEstiloBloqueo(cmbMaquina, bloquear);
-
-        panelStock.setVisible(!bloquear);
-        panelStock.setManaged(!bloquear);
-    }
-
     private void alternarEstiloBloqueo(Control campo, boolean bloquear) {
         if (bloquear) {
             if (!campo.getStyleClass().contains("campo-bloqueado")) campo.getStyleClass().add("campo-bloqueado");
@@ -106,16 +85,59 @@ public class FichaAceiteController {
         }
     }
 
+    private void bloquearCampos(boolean bloquear) {
+        cmbMaquina.setDisable(bloquear);
+        alternarEstiloBloqueo(cmbMaquina, bloquear);
+
+        txtTipoAceite.setEditable(!bloquear);
+        txtReferencia.setEditable(!bloquear);
+        txtCapacidad.setEditable(!bloquear);
+        txtEmpresa.setEditable(!bloquear);
+        txtPrecio.setEditable(!bloquear);
+        txtCantidadPrincipal.setEditable(!bloquear);
+
+        alternarEstiloBloqueo(txtTipoAceite, bloquear);
+        alternarEstiloBloqueo(txtReferencia, bloquear);
+        alternarEstiloBloqueo(txtCapacidad, bloquear);
+        alternarEstiloBloqueo(txtEmpresa, bloquear);
+        alternarEstiloBloqueo(txtPrecio, bloquear);
+
+        panelStock.setVisible(!bloquear);
+        panelStock.setManaged(!bloquear);
+    }
+
     @FXML
     private void toggleEdicion() {
         if (!modoEdicion) {
             modoEdicion = true;
             UtilidadesUI.aplicarModoEdicion(btnModificar, lblModo);
+
+            btnCancelarEdicion.setVisible(true);
+            btnCancelarEdicion.setManaged(true);
+            btnCerrar.setVisible(false);
+            btnCerrar.setManaged(false);
+
             bloquearCampos(false);
             UtilidadesUI.reajustarVentana(btnModificar);
         } else {
             guardarDatos();
         }
+    }
+
+    @FXML
+    private void cancelarEdicion() {
+        initData(service.obtenerAceitePorId(aceite.getId()), padreController);
+
+        modoEdicion = false;
+        UtilidadesUI.aplicarModoLectura(btnModificar, lblModo);
+
+        btnCancelarEdicion.setVisible(false);
+        btnCancelarEdicion.setManaged(false);
+        btnCerrar.setVisible(true);
+        btnCerrar.setManaged(true);
+
+        bloquearCampos(true);
+        UtilidadesUI.reajustarVentana(btnModificar);
     }
 
     private void guardarDatos() {
@@ -125,24 +147,48 @@ public class FichaAceiteController {
 
             aceite.setMaquinaDestino(cmbMaquina.getValue());
             aceite.setTipoAceite(txtTipoAceite.getText());
-            aceite.setUsoConcreto(txtUso.getText().trim());
+            aceite.setReferencia(txtReferencia.getText().trim());
             aceite.setCapacidadLitros(Validador.parsearDoublePositivo(txtCapacidad.getText(), "Capacidad (Litros)"));
             aceite.setCantidad(Validador.parsearEnteroPositivo(txtCantidadPrincipal.getText(), "Stock"));
-            aceite.setEmpresaCompra(txtEmpresa.getText().trim());
-            aceite.setPrecio(Validador.parsearDoubleOpcional(txtPrecio.getText(), "Precio"));
+
+            aceite.setEmpresaCompra(txtEmpresa.getText().trim()); // OPCIONAL
+            aceite.setPrecio(Validador.parsearDoubleOpcional(txtPrecio.getText(), "Precio")); // OPCIONAL
 
             service.guardarAceite(aceite);
             padreController.cargarDatos();
 
+            // VOLVEMOS A LECTURA SIN CERRAR
             modoEdicion = false;
-            UtilidadesUI.aplicarModoLectura(btnModificar, lblModo); // <--- LÍNEA LIMPIA
+            UtilidadesUI.aplicarModoLectura(btnModificar, lblModo);
+
+            btnCancelarEdicion.setVisible(false);
+            btnCancelarEdicion.setManaged(false);
+            btnCerrar.setVisible(true);
+            btnCerrar.setManaged(true);
+
             bloquearCampos(true);
             UtilidadesUI.reajustarVentana(btnModificar);
 
+            AlertaUI.mostrarInfo("Actualizado", "Los datos del aceite se han guardado correctamente.");
+
         } catch (ValidacionException ve) {
-            AlertaUI.mostrarError("Revisa los datos", ve.getMessage());
+            AlertaUI.mostrarError("Faltan Datos Obligatorios", ve.getMessage());
         } catch (Exception e) {
             AlertaUI.mostrarErrorCritico("Error de Base de Datos", "No se pudo actualizar el aceite.");
+        }
+    }
+
+    @FXML
+    private void eliminar(ActionEvent event) {
+        boolean confirmar = AlertaUI.pedirConfirmacion("Eliminar Aceite", "¿Estás seguro de que deseas eliminar este aceite permanentemente?");
+        if (confirmar) {
+            try {
+                service.eliminarAceite(aceite);
+                padreController.cargarDatos();
+                cerrar(event);
+            } catch (Exception e) {
+                AlertaUI.mostrarErrorCritico("Error", "No se pudo eliminar el aceite.");
+            }
         }
     }
 

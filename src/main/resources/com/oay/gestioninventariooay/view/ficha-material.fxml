@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
 <AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.oay.gestioninventariooay.controller.FichaMaterialController"
@@ -24,10 +23,10 @@
             </columnConstraints>
 
             <Label text="Formato:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtCategoria" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <ComboBox fx:id="cmbCategoria" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="250.0"/>
 
             <Label text="Tipo de Material:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtTipoMaterial" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <ComboBox fx:id="cmbTipoMaterial" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="250.0"/>
 
             <Label text="Proveedor:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
             <TextField fx:id="txtEmpresa" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
@@ -50,13 +49,16 @@
 
         <VBox fx:id="panelStock" spacing="10" styleClass="panel-stock">
             <Label text="Ajuste de Cantidad / Stock" styleClass="titulo-stock"/>
-
             <HBox fx:id="boxControlesStock" spacing="10" alignment="CENTER_LEFT"/>
         </VBox>
 
         <HBox spacing="15.0" alignment="CENTER_RIGHT">
-            <Button text="Cerrar" onAction="#cerrar" styleClass="boton-cancelar"/>
-            <Button fx:id="btnModificar" text="Modificar Datos" onAction="#toggleEdicion" styleClass="boton-accion-yellow"/>
+            <Button fx:id="btnEliminar" text="Eliminar Material" onAction="#eliminar" styleClass="boton-eliminar"/>
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Button fx:id="btnCancelarEdicion" text="Cancelar Edición" onAction="#cancelarEdicion" styleClass="boton-cancelar" visible="false" managed="false"/>
+            <Button fx:id="btnCerrar" text="Cerrar Ficha" onAction="#cerrar" styleClass="boton-cancelar"/>
+            <Button fx:id="btnModificar" text="Modificar Datos" onAction="#toggleEdicion" styleClass="boton-lectura-activo"/>
         </HBox>
     </VBox>
 </AnchorPane>

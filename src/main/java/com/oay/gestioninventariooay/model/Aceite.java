@@ -12,8 +12,7 @@ public class Aceite extends ElementoInventario {
     @Column(name = "maquina_destino", nullable = false)
     private String maquinaDestino; // Fijo: torno mazak, fresa mikron, fresa kondia, fresa puente, sierra
 
-    @Column(name = "uso_concreto")
-    private String usoConcreto;
+    private String referencia;
 
     // Aquí lo trataremos por unidades de garrafas/bidones
     @Column(name = "capacidad_litros", nullable = false)
@@ -31,8 +30,8 @@ public class Aceite extends ElementoInventario {
     public String getMaquinaDestino() { return maquinaDestino; }
     public void setMaquinaDestino(String maquinaDestino) { this.maquinaDestino = maquinaDestino; }
 
-    public String getUsoConcreto() { return usoConcreto; }
-    public void setUsoConcreto(String usoConcreto) { this.usoConcreto = usoConcreto; }
+    public String getReferencia() { return referencia; }
+    public void setReferencia(String referencia) { this.referencia = referencia; }
 
     public Double getCapacidadLitros() { return capacidadLitros; }
     public void setCapacidadLitros(Double capacidadLitros) { this.capacidadLitros = capacidadLitros; }
