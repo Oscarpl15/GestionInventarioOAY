@@ -41,7 +41,7 @@ public class FichaMaterialController {
         cmbCategoria.getItems().addAll("Redonda", "Cuadrada", "Plancha");
         cmbTipoMaterial.getItems().addAll("Aluminio", "Acero", "Acero inoxidable", "Duraluminio", "Cobre", "Bronce", "Latón", "PVC", "Teflón");
 
-        // Magia: Si en modo edición cambias de formato, reestructura los campos en tiempo real
+        //  Si en modo edición cambias de formato, reestructura los campos en tiempo real
         cmbCategoria.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (modoEdicion && newVal != null && !newVal.equals(oldVal)) {
                 material.setCategoria(newVal);

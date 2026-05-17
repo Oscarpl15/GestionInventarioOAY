@@ -8,10 +8,10 @@ public abstract class ElementoInventario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "empresa_compra") // Ya no es nullable = false
+    @Column(name = "empresa_compra")
     private String empresaCompra;
 
-    private Double precio; // Ya no es nullable = false
+    private Double precio;
 
     public ElementoInventario() {}
 
